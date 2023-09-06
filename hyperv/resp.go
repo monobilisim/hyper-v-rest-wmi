@@ -11,11 +11,14 @@ type response struct {
 func returnResponse(respData interface{}, status int, result, message string) (int, string, []byte) {
 	if value, ok := respData.(string); ok {
 		respData, _ = json.Marshal(value)
+	} else if value, ok := respData.([]byte); ok {
+		respData = json.RawMessage(value)
 	}
+
 	resp := response{
 		Result:  result,
 		Message: message,
-		Data:    json.RawMessage(respData.([]byte)),
+		Data:    respData,
 	}
 	jsonResp, _ := json.MarshalIndent(resp, "", "    ")
 	return status, "application/json", jsonResp
