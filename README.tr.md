@@ -43,13 +43,9 @@ PS C:\Program Files\hyper-v-rest-wmi> .\hyper-v-rest-wmi.exe --service=start
 
 - Tüm sanal makineler: `/vms`
 - CPU bilgileri: `/vms/<VM-ID>/processor`
-- Tüm sanal makinelerin CPU bilgileri: `/vms/all/processor`
 - RAM bilgileri: `/vms/<VM-ID>/memory`
-- Tüm sanal makinelerin RAM bilgileri: `/vms/all/memory`
 - Disk bilgileri: `/vms/<VM-ID>/vhd`
-- Tüm sanal makinelerin disk bilgileri: `/vms/all/vhd`
 - Ağ bilgileri: `/vms/<VM-ID>/network`
-- Tüm sanal makinelerin ağ bilgileri: `/vms/all/network`
 - Sürüm: `/version`
 
 ---

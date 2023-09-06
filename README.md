@@ -43,13 +43,9 @@ PS C:\Program Files\hyper-v-rest-wmi> .\hyper-v-rest-wmi.exe --service=start
 
 - All virtual machines: `/vms`
 - CPU information: `/vms/<VM-ID>/processor`
-- CPU information for all virtual machines: `/vms/all/processor`
 - RAM information: `/vms/<VM-ID>/memory`
-- RAM information for all virtual machines: `/vms/all/memory`
 - Disk information: `/vms/<VM-ID>/vhd`
-- Disk information for all virtual machines: `/vms/all/vhd`
 - Network information: `/vms/<VM-ID>/network`
-- Network information for all virtual machines: `/vms/all/network`
 - Version: `/version`
 
 ---
