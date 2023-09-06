@@ -13,25 +13,25 @@
 </a>
 
 <h2 align="center">hyper-v-api-wmi</h2>
-<b>hyper-v-api-wmi</b> is a tool for accessing Hyper-V VM information through RESTful APIs.
+<b>hyper-v-api-wmi</b> Hyper-V sanal makine bilgilerine RESTful API'lar aracılığıyla erişim sağlamak için bir araçtır.
 </div>
 
 ---
 
-## Table of Contents
+## İçindekiler 
 
-- [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
+- [İçindekiler](#i̇çindekiler)
+- [Kurulum](#kurulum)
+- [Kullanım](#kullanım)
+- [Lisans](#lisans)
 
 ---
 
-## Installation
+## Kurulum
 
-1. Create the `%PROGRAMFILES%\hyper-v-rest-ps` directory.
-2. Copy the `hyper-v-rest-ps.exe` file to the `%PROGRAMFILES%\hyper-v-rest-ps` directory.
-3. Open Windows PowerShell as an administrator and execute the following commands:
+1. `%PROGRAMFILES%\hyper-v-rest-ps` dizinini oluşturun.
+2. `hyper-v-rest-ps.exe` dosyasını `%PROGRAMFILES%\hyper-v-rest-ps` dizinine kopyalayın.
+3. Yönetici olarak Windows PowerShell'i açın ve aşağıdaki komutları çalıştırın:
 
 ```powershell
 PS C:\WINDOWS\system32> cd "$env:PROGRAMFILES\hyper-v-rest-ps"
@@ -39,24 +39,24 @@ PS C:\Program Files\hyper-v-rest-ps> .\hyper-v-rest-ps.exe --service=install
 PS C:\Program Files\hyper-v-rest-ps> .\hyper-v-rest-ps.exe --service=start
 ```
 
-## Usage
+## Kullanım
 
-- All virtual machines: `/vms`
-- CPU information: `/vms/<VM-ID>/processor`
-- CPU information for all virtual machines: `/vms/all/processor`
-- RAM information: `/vms/<VM-ID>/memory`
-- RAM information for all virtual machines: `/vms/all/memory`
-- Disk information: `/vms/<VM-ID>/vhd`
-- Disk information for all virtual machines: `/vms/all/vhd`
-- Network information: `/vms/<VM-ID>/network`
-- Network information for all virtual machines: `/vms/all/network`
-- Version: `/version`
+- Tüm sanal makineler: `/vms`
+- CPU bilgileri: `/vms/<VM-ID>/processor`
+- Tüm sanal makinelerin CPU bilgileri: `/vms/all/processor`
+- RAM bilgileri: `/vms/<VM-ID>/memory`
+- Tüm sanal makinelerin RAM bilgileri: `/vms/all/memory`
+- Disk bilgileri: `/vms/<VM-ID>/vhd`
+- Tüm sanal makinelerin disk bilgileri: `/vms/all/vhd`
+- Ağ bilgileri: `/vms/<VM-ID>/network`
+- Tüm sanal makinelerin ağ bilgileri: `/vms/all/network`
+- Sürüm: `/version`
 
 ---
 
-## License
+## Lisans 
 
-hyper-v-rest-ps is GPL-3.0 licensed. See [LICENSE](LICENSE) file for details.
+hyper-v-rest-ps, GPL-3.0 lisanslıdır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
 
 [contributors-shield]: https://img.shields.io/github/contributors/monobilisim/hyper-v-rest-ps.svg?style=for-the-badge
 [contributors-url]: https://github.com/monobilisim/hyper-v-rest-ps/graphs/contributors

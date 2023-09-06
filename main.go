@@ -4,14 +4,14 @@ package main
 
 import (
 	"flag"
-	"hyper-v-rest/conf"
-	"hyper-v-rest/rest"
-	"log"
+	"hyper-v-rest-wmi/rest"
+	"hyper-v-rest-wmi/utilities"
 	"os"
 
 	"github.com/kardianos/service"
 )
 
+var log = utilities.Log
 var logger service.Logger
 
 type program struct {
@@ -22,7 +22,7 @@ func (p *program) Start(s service.Service) error {
 	if service.Interactive() {
 		logger.Info("Running in interactive terminal.")
 	} else {
-		logger.Info("Running as service.")
+		logger.Info("Running under service manager.")
 	}
 	p.exit = make(chan struct{})
 
@@ -32,9 +32,8 @@ func (p *program) Start(s service.Service) error {
 }
 
 func (p *program) run() {
-	c := conf.NewParams()
-	s := rest.NewServer(c.Port)
-	s.Run()
+	c := utilities.ParseConfig()
+	rest.StartServer(c.Port, "1.0.0")
 }
 
 func (p *program) Stop(s service.Service) error {
@@ -55,8 +54,8 @@ func main() {
 	options["Restart"] = "on-success"
 	options["SuccessExitStatus"] = "1 2 8 SIGKILL"
 	svcConfig := &service.Config{
-		Name:        "hyper-v-rest",
-		DisplayName: "Hyper-V REST Service",
+		Name:        "hyper-v-rest-wmi",
+		DisplayName: "Hyper-V REST WMI Service",
 		Description: "Simple REST service for querying VMs in Hyper-V via WMI",
 		Option:      options,
 	}
