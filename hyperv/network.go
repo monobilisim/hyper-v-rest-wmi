@@ -21,9 +21,14 @@ func queryNetwork(vmName string) ([]Msvm_GuestNetworkAdapterConfiguration, error
 	q := "ASSOCIATORS OF {Msvm_VirtualSystemSettingData.InstanceID='Microsoft:" + vmName + "'} WHERE ResultClass = Msvm_SyntheticEthernetPortSettingData"
 	wmi.QueryNamespace(q, &dst_eth, `root\virtualization\v2`)
 	var dst []Msvm_GuestNetworkAdapterConfiguration
-	q = "ASSOCIATORS OF {Msvm_SyntheticEthernetPortSettingData.InstanceID='" + dst_eth[0].InstanceID + "'} WHERE ResultClass = Msvm_GuestNetworkAdapterConfiguration"
-	err := wmi.QueryNamespace(q, &dst, `root\virtualization\v2`)
-	return dst, err
+	for _, a := range dst_eth {
+		q = "ASSOCIATORS OF {Msvm_SyntheticEthernetPortSettingData.InstanceID='" + a.InstanceID + "'} WHERE ResultClass = Msvm_GuestNetworkAdapterConfiguration"
+		err := wmi.QueryNamespace(q, &dst, `root\virtualization\v2`)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return dst, nil
 }
 
 func Network(c *gin.Context) {
