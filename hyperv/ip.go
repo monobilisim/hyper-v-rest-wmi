@@ -16,14 +16,19 @@ type Msvm_GuestNetworkAdapterConfiguration struct {
 	IPAddresses []string
 }
 
-func queryNetwork(vmName string) ([]Msvm_GuestNetworkAdapterConfiguration, error) {
+func queryIp(vmName string) ([]Msvm_GuestNetworkAdapterConfiguration, error) {
 	var dst_eth []Msvm_SyntheticEthernetPortSettingData
 	q := "ASSOCIATORS OF {Msvm_VirtualSystemSettingData.InstanceID='Microsoft:" + vmName + "'} WHERE ResultClass = Msvm_SyntheticEthernetPortSettingData"
 	wmi.QueryNamespace(q, &dst_eth, `root\virtualization\v2`)
 	var dst []Msvm_GuestNetworkAdapterConfiguration
-	for _, a := range dst_eth {
-		q = "ASSOCIATORS OF {Msvm_SyntheticEthernetPortSettingData.InstanceID='" + a.InstanceID + "'} WHERE ResultClass = Msvm_GuestNetworkAdapterConfiguration"
-		err := wmi.QueryNamespace(q, &dst, `root\virtualization\v2`)
+	for _, eth_data := range dst_eth {
+		var tmp_dst []Msvm_GuestNetworkAdapterConfiguration
+		q = "ASSOCIATORS OF {Msvm_SyntheticEthernetPortSettingData.InstanceID='" + eth_data.InstanceID + "'} WHERE ResultClass = Msvm_GuestNetworkAdapterConfiguration"
+		utilities.Log.Info(q)
+		err := wmi.QueryNamespace(q, &tmp_dst, `root\virtualization\v2`)
+		utilities.Log.Info(tmp_dst)
+		dst = append(dst, tmp_dst[0])
+		utilities.Log.Info(dst)
 		if err != nil {
 			return nil, err
 		}
@@ -31,7 +36,7 @@ func queryNetwork(vmName string) ([]Msvm_GuestNetworkAdapterConfiguration, error
 	return dst, nil
 }
 
-func Network(c *gin.Context) {
+func Ip(c *gin.Context) {
 	input := c.Param("machid")
 
 	if input == "" {
@@ -44,21 +49,12 @@ func Network(c *gin.Context) {
 		return
 	}
 
-	result, err := queryNetwork(input)
-
-	for _, a := range result {
-		for _, b := range a.IPAddresses {
-			if string(b) == "" {
-				c.Data(returnResponse("VM not found", http.StatusNotFound, "failure", "error"))
-				return
-			}
-		}
-	}
+	result, err := queryIp(input)
 
 	if err != nil {
 		c.Data(returnResponse(err.Error(), http.StatusInternalServerError, "failure", "error"))
 		return
 	}
 
-	c.Data(returnResponse(result, http.StatusOK, "success", "Network info is displayed in data field"))
+	c.Data(returnResponse(result, http.StatusOK, "success", "IP info is displayed in data field"))
 }

@@ -28,13 +28,6 @@ func VHD(c *gin.Context) {
 
 	result, err := queryVHD(input)
 
-	for _, a := range result {
-		if string(a) == "" {
-			c.Data(returnResponse("VM not found", http.StatusNotFound, "failure", "error"))
-			return
-		}
-	}
-
 	if err != nil {
 		c.Data(returnResponse(err.Error(), http.StatusInternalServerError, "failure", "error"))
 		return

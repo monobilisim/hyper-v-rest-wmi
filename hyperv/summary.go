@@ -13,14 +13,14 @@ type Msvm_SummaryInformation struct {
 	GuestOperatingSystem string
 }
 
-func queryProcessor(vmName string) ([]Msvm_SummaryInformation, error) {
+func querySummary(vmName string) ([]Msvm_SummaryInformation, error) {
 	var dst []Msvm_SummaryInformation
 	q := wmi.CreateQuery(&dst, "WHERE Name='"+vmName+"'")
 	err := wmi.QueryNamespace(q, &dst, `root\virtualization\v2`)
 	return dst, err
 }
 
-func Processor(c *gin.Context) {
+func Summary(c *gin.Context) {
 	input := c.Param("machid")
 
 	if input == "" {
@@ -33,19 +33,12 @@ func Processor(c *gin.Context) {
 		return
 	}
 
-	result, err := queryProcessor(input)
-
-	for _, a := range result {
-		if string(a.NumberOfProcessors) == "" {
-			c.Data(returnResponse("VM not found", http.StatusNotFound, "failure", "error"))
-			return
-		}
-	}
+	result, err := querySummary(input)
 
 	if err != nil {
 		c.Data(returnResponse(err.Error(), http.StatusInternalServerError, "failure", "error"))
 		return
 	}
 
-	c.Data(returnResponse(result, http.StatusOK, "success", "Processor info is displayed in data field"))
+	c.Data(returnResponse(result, http.StatusOK, "success", "Summary info is displayed in data field"))
 }

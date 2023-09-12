@@ -34,13 +34,6 @@ func Memory(c *gin.Context) {
 
 	result, err := queryMemory(input)
 
-	for _, a := range result {
-		if string(a.VirtualQuantity) == "" {
-			c.Data(returnResponse("VM not found", http.StatusNotFound, "failure", "error"))
-			return
-		}
-	}
-
 	if err != nil {
 		c.Data(returnResponse(err.Error(), http.StatusInternalServerError, "failure", "error"))
 		return

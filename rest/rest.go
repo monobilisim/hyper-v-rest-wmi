@@ -14,10 +14,10 @@ func StartServer(port int, version string) {
 	//r := gin.New()
 	r := gin.Default()
 	r.GET("/vms", hyperv.VMS)
+	r.GET("/vms/:machid/summary", hyperv.Summary)
 	r.GET("/vms/:machid/memory", hyperv.Memory)
-	r.GET("/vms/:machid/network", hyperv.Network)
-	r.GET("/vms/:machid/processor", hyperv.Processor)
 	r.GET("/vms/:machid/vhd", hyperv.VHD)
+	r.GET("/vms/:machid/ip", hyperv.Ip)
 
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
