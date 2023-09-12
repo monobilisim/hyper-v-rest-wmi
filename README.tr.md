@@ -7,18 +7,18 @@
 [![Readme in English](https://img.shields.io/badge/Readme-English-blue)](README.md)
 [![Readme in Turkish](https://img.shields.io/badge/Readme-Turkish-red)](README.tr.md)
 
-<div align="center"> 
+<div align="center">
 <a href="https://mono.net.tr/">
   <img src="https://monobilisim.com.tr/images/mono-bilisim.svg" width="340"/>
 </a>
 
-<h2 align="center">hyper-v-api-wmi</h2>
-<b>hyper-v-api-wmi</b> Hyper-V sanal makine bilgilerine RESTful API'lar aracılığıyla erişim sağlamak için bir araçtır.
+<h2 align="center">hyper-v-rest-wmi</h2>
+<b>hyper-v-rest-wmi</b> Hyper-V sanal makine bilgilerine RESTful API aracılığıyla erişim sağlamak için bir araçtır.
 </div>
 
 ---
 
-## İçindekiler 
+## İçindekiler
 
 - [İçindekiler](#i̇çindekiler)
 - [Kurulum](#kurulum)
@@ -34,23 +34,23 @@
 3. Yönetici olarak Windows PowerShell'i açın ve aşağıdaki komutları çalıştırın:
 
 ```powershell
-PS C:\WINDOWS\system32> cd "$env:PROGRAMFILES\hyper-v-rest-wmi"
-PS C:\Program Files\hyper-v-rest-wmi> .\hyper-v-rest-wmi.exe --service=install
-PS C:\Program Files\hyper-v-rest-wmi> .\hyper-v-rest-wmi.exe --service=start
+cd "$env:PROGRAMFILES\hyper-v-rest-wmi"
+.\hyper-v-rest-wmi.exe --service=install
+.\hyper-v-rest-wmi.exe --service=start
 ```
 
 ## Kullanım
 
 - Tüm sanal makineler: `/vms`
-- CPU bilgileri: `/vms/<VM-ID>/processor`
+- CPU bilgileri: `/vms/<VM-ID>/summary`
 - RAM bilgileri: `/vms/<VM-ID>/memory`
 - Disk bilgileri: `/vms/<VM-ID>/vhd`
-- Ağ bilgileri: `/vms/<VM-ID>/network`
+- Ağ bilgileri: `/vms/<VM-ID>/ip`
 - Sürüm: `/version`
 
 ---
 
-## Lisans 
+## Lisans
 
 hyper-v-rest-wmi, GPL-3.0 lisanslıdır. Detaylar için [LICENSE](LICENSE) dosyasına bakınız.
 

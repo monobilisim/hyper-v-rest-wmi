@@ -24,11 +24,8 @@ func queryIp(vmName string) ([]Msvm_GuestNetworkAdapterConfiguration, error) {
 	for _, eth_data := range dst_eth {
 		var tmp_dst []Msvm_GuestNetworkAdapterConfiguration
 		q = "ASSOCIATORS OF {Msvm_SyntheticEthernetPortSettingData.InstanceID='" + eth_data.InstanceID + "'} WHERE ResultClass = Msvm_GuestNetworkAdapterConfiguration"
-		utilities.Log.Info(q)
 		err := wmi.QueryNamespace(q, &tmp_dst, `root\virtualization\v2`)
-		utilities.Log.Info(tmp_dst)
 		dst = append(dst, tmp_dst[0])
-		utilities.Log.Info(dst)
 		if err != nil {
 			return nil, err
 		}

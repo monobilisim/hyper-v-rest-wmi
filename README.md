@@ -7,13 +7,13 @@
 [![Readme in English](https://img.shields.io/badge/Readme-English-blue)](README.md)
 [![Readme in Turkish](https://img.shields.io/badge/Readme-Turkish-red)](README.tr.md)
 
-<div align="center"> 
+<div align="center">
 <a href="https://mono.net.tr/">
   <img src="https://monobilisim.com.tr/images/mono-bilisim.svg" width="340"/>
 </a>
 
-<h2 align="center">hyper-v-api-wmi</h2>
-<b>hyper-v-api-wmi</b> is a tool for accessing Hyper-V VM information through RESTful APIs.
+<h2 align="center">hyper-v-rest-wmi</h2>
+<b>hyper-v-rest-wmi</b> is a tool for accessing Hyper-V VM information through RESTful API.
 </div>
 
 ---
@@ -34,18 +34,18 @@
 3. Open Windows PowerShell as an administrator and execute the following commands:
 
 ```powershell
-PS C:\WINDOWS\system32> cd "$env:PROGRAMFILES\hyper-v-rest-wmi"
-PS C:\Program Files\hyper-v-rest-wmi> .\hyper-v-rest-wmi.exe --service=install
-PS C:\Program Files\hyper-v-rest-wmi> .\hyper-v-rest-wmi.exe --service=start
+cd "$env:PROGRAMFILES\hyper-v-rest-wmi"
+.\hyper-v-rest-wmi.exe --service=install
+.\hyper-v-rest-wmi.exe --service=start
 ```
 
 ## Usage
 
 - All virtual machines: `/vms`
-- CPU information: `/vms/<VM-ID>/processor`
+- CPU information: `/vms/<VM-ID>/summary`
 - RAM information: `/vms/<VM-ID>/memory`
 - Disk information: `/vms/<VM-ID>/vhd`
-- Network information: `/vms/<VM-ID>/network`
+- Network information: `/vms/<VM-ID>/ip`
 - Version: `/version`
 
 ---
