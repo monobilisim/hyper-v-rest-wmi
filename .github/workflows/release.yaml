@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
   # packages: write
-  # issues: write
+# issues: write
 
 jobs:
   goreleaser:
@@ -22,24 +22,40 @@ jobs:
 
       - name: git fetch
         run: git fetch --force --tags
-
+        
       - name: setup go
-      - uses: actions/setup-go@v4
+        uses: actions/setup-go@v4
         with:
           go-version: stable
 
       - name: set version in main.go
         run: sed -i "s/rest.StartServer(c.Port, \"1.0.0\")/rest.StartServer(c.Port, \"$(git tag | sort -Vr | head -n 1)\")/g" $PWD/main.go
 
-      - name: build
-      - uses: goreleaser/goreleaser-action@v4
+      - name: build go     
+        uses: goreleaser/goreleaser-action@v4
         with:
-          # either 'goreleaser' (default) or 'goreleaser-pro':
           distribution: goreleaser
           version: latest
-          args: release --clean
+          args: release --clean --skip-publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Your GoReleaser Pro key, if you are using the 'goreleaser-pro'
-          # distribution:
-          # GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
+
+      - name: innosetup
+        run: |
+          cp ./dist/hyper-v-rest-wmi_windows_amd64_v1/hyper-v-rest-wmi.exe packaging/hyper-v-rest-wmi.exe
+          cd packaging/
+          docker build . --security-opt label=disable -t inno:64bit
+          bash ./iscc.sh 64 innosetup.iss
+          mv hyper-v-rest-wmi.exe hyper-v-rest-wmi-portable.exe
+
+      - name: upload release
+        id: create_release
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          title: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+          files: |
+            ./packaging/hyper-v-rest-wmi-portable.exe
+            ./packaging/Output/hyper-v-rest-wmi-setup.exe
