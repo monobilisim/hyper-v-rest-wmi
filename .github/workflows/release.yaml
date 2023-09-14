@@ -15,15 +15,21 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: pull repo
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: git fetch
       - run: git fetch --force --tags
       - uses: actions/setup-go@v4
         with:
           go-version: stable
-      # More assembly might be required: Docker logins, GPG, etc. It all depends
-      # on your needs.
+
+      - name: set version in main.go
+        run: sed -i "s/rest.StartServer(c.Port, \"1.0.0\")/rest.StartServer(c.Port, \"$(git tag | sort -Vr | head -n 1)\")/g" $PWD/main.go
+
+      - name: build
       - uses: goreleaser/goreleaser-action@v4
         with:
           # either 'goreleaser' (default) or 'goreleaser-pro':
