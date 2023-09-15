@@ -29,15 +29,9 @@
 
 ## Kurulum
 
-1. `%PROGRAMFILES%\hyper-v-rest-wmi` dizinini oluşturun.
-2. `hyper-v-rest-wmi.exe` dosyasını `%PROGRAMFILES%\hyper-v-rest-wmi` dizinine kopyalayın.
-3. Yönetici olarak Windows PowerShell'i açın ve aşağıdaki komutları çalıştırın:
-
-```powershell
-cd "$env:PROGRAMFILES\hyper-v-rest-wmi"
-.\hyper-v-rest-wmi.exe --service=install
-.\hyper-v-rest-wmi.exe --service=start
-```
+1. [Releases](https://github.com/monobilisim/hyper-v-rest-wmi/releases) sayfasına gidin.
+2. *Portable (taşınabilir, kurulumsuz)* veya *Setup (kurulumlu)* paketlerden birini indirin.
+3. Çalıştırın!
 
 ## Kullanım
 

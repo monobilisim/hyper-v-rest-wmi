@@ -29,15 +29,9 @@
 
 ## Installation
 
-1. Create the `%PROGRAMFILES%\hyper-v-rest-wmi` directory.
-2. Copy the `hyper-v-rest-wmi.exe` file to the `%PROGRAMFILES%\hyper-v-rest-wmi` directory.
-3. Open Windows PowerShell as an administrator and execute the following commands:
-
-```powershell
-cd "$env:PROGRAMFILES\hyper-v-rest-wmi"
-.\hyper-v-rest-wmi.exe --service=install
-.\hyper-v-rest-wmi.exe --service=start
-```
+1. Go to the [Releases](https://github.com/monobilisim/hyper-v-rest-wmi/releases) page.
+2. Download *portable* or *setup* package.
+3. Run it!
 
 ## Usage
 
